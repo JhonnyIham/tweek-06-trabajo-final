@@ -64,6 +64,35 @@ test("Put -> BASE_URL/:id, should return statusCode 200, res.body.firstName ====
     expect(res.body.firstName).toBe(bodyUpdate.firstName)
 })
 
+test("Post -> BASE_URL/login, should return status code 200, res.body.user.email ==== user.email and res.body.token to be defined", async () => {
+  const user = {
+    email: "ivanna@gmail.com",
+    password: "ivana1234"
+  }
+
+  const res = await request(app)
+    .post(`${BASE_URL}/login`)
+    .send(user)
+
+  expect(res.statusCode).toBe(200)
+  expect(res.body).toBeDefined()
+  expect(res.body.user.email).toBe(user.email)
+  expect(res.body.token).toBeDefined()
+})
+
+test("Post -> BASE_URL/login, should return status code 401", async () => {
+  const userInvalid = {
+    email: "ivannas@gmail.com",
+    password: "sad"
+  }
+
+  const res = await request(app)
+    .post(`${BASE_URL}/login`)
+    .send(userInvalid)
+
+  expect(res.statusCode).toBe(401)
+})
+
 test("Delete BASE_URL/:id, should return statusCode 204", async () => {
     const res = await request(app)
       .delete(`${BASE_URL}/${userId}`)
@@ -71,3 +100,4 @@ test("Delete BASE_URL/:id, should return statusCode 204", async () => {
   
     expect(res.status).toBe(204)
 })
+
