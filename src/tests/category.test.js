@@ -3,7 +3,6 @@ const app = require("../app")
 
 const BASE_URL = '/api/v1/categories'
 
-
 let TOKEN
 let categoryId
 

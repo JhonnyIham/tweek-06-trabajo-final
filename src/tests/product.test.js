@@ -36,7 +36,6 @@ beforeAll(async () => {
 
 test("Post -> BASE_URL, should return status code 201, res.body.title ==== product.title", async () => {
 
-
     const res = await request(app)
       .post(BASE_URL)
       .send(product)
